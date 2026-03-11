@@ -1,0 +1,25 @@
+export const POSTS_LABELS = {
+  postList: {
+    emptyState: "No posts yet. Create your first post above.",
+    errorMessage: "Failed to load posts. Please try again.",
+    editButton: "Edit",
+    deleteButton: "Delete",
+    editingLabel: "Editing post",
+    cancelButton: "Cancel",
+    authorLabel: "Author ID: {authorUserId}",
+    deleteConfirmMessage: "Are you sure you want to delete this post?",
+    deleteConfirmButton: "Delete",
+    deleteCancelButton: "Cancel",
+  },
+  postForm: {
+    titleLabel: "Title",
+    titleRequired: "*",
+    titlePlaceholder: "Post title",
+    contentLabel: "Content",
+    contentRequired: "*",
+    contentPlaceholder: "Post content",
+    createButton: "Create post",
+    updateButton: "Update post",
+    savingButton: "Saving...",
+  },
+} as const;

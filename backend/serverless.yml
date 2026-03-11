@@ -1,0 +1,33 @@
+service: user-portal-backend
+
+useDotenv: true
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: us-east-1
+  ecr:
+    images:
+      user-portal:
+        path: ./
+  environment:
+    DATABASE_URL: ${env:DATABASE_URL_PROD}
+    JWT_SECRET: ${env:JWT_SECRET}
+    REQRES_API_KEY: ${env:REQRES_API_KEY}
+    REQRES_BASE_URL: ${env:REQRES_BASE_URL}
+    FRONTEND_URL: ${env:FRONTEND_URL}
+
+functions:
+  api:
+    image:
+      name: user-portal
+    events:
+      - http:
+          method: any
+          path: /
+      - http:
+          method: any
+          path: /{proxy+}
+
+plugins:
+  - serverless-offline
