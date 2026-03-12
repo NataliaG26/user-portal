@@ -6,6 +6,7 @@ RUN npm install
 RUN npx prisma generate
 COPY . .
 RUN npm run build
+RUN ls -la dist/
 
 EXPOSE 3001
 CMD ["node", "dist/main.js"]
