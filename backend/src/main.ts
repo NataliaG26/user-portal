@@ -17,28 +17,30 @@ import { GlobalExceptionFilter } from './shared/exceptions/http-exception.filter
  */
 async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(AppModule);
-  
+
   // Set global API prefix for all routes
   app.setGlobalPrefix('api');
-  
+
   // Enable cookie parsing for JWT authentication
   app.use(cookieParser());
-  
+
   // Configure CORS for frontend communication
   app.enableCors({
     origin: 'http://localhost:3000',
     credentials: true,
   });
-  
+
   // Apply global exception filter for consistent error handling
   app.useGlobalFilters(new GlobalExceptionFilter());
-  
+
   // Apply global validation pipe for DTO validation
-  app.useGlobalPipes(new ValidationPipe({
-    whitelist: true,
-    forbidNonWhitelisted: true,
-    transform: true,
-  }));
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      transform: true,
+    }),
+  );
 
   // Configure Swagger/OpenAPI documentation
   const config = new DocumentBuilder()
@@ -52,7 +54,7 @@ async function bootstrap(): Promise<void> {
   SwaggerModule.setup('docs', app, document);
 
   // Start the server
-  await app.listen(process.env.PORT ?? 3001);
+  await app.listen(process.env.PORT ?? 3001, '0.0.0.0');
 }
 
 bootstrap();
