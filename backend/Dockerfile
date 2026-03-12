@@ -5,8 +5,8 @@ COPY prisma ./prisma
 RUN npm install
 RUN npx prisma generate
 COPY . .
-RUN npm run build
-RUN ls -la dist/
+RUN npm run build || (echo "BUILD FAILED" && exit 1)
+RUN ls -la /app/dist/ || echo "DIST NOT FOUND"
 
 EXPOSE 3001
 CMD ["node", "dist/main.js"]
