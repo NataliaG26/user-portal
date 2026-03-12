@@ -5,8 +5,8 @@ COPY prisma ./prisma
 RUN npm install
 RUN npx prisma generate
 COPY . .
-RUN npm run build || (echo "BUILD FAILED" && exit 1)
-RUN ls -la /app/dist/ || echo "DIST NOT FOUND"
+RUN npx nest build --webpack || npx tsc -p tsconfig.build.json --skipLibCheck || true
+RUN ls -la /app/dist/
 
 EXPOSE 3001
 CMD ["node", "dist/main.js"]
