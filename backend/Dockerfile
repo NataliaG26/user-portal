@@ -1,5 +1,5 @@
-FROM --platform=linux/amd64 public.ecr.aws/lambda/nodejs:20
-WORKDIR /var/task
+FROM --platform=linux/amd64 node:20-alpine
+WORKDIR /app
 COPY package*.json ./
 COPY prisma ./prisma
 RUN npm install
@@ -7,4 +7,5 @@ RUN npx prisma generate
 COPY . .
 RUN npm run build
 
-CMD ["dist/lambda.handler"]
+EXPOSE 3001
+CMD ["node", "dist/main.js"]
